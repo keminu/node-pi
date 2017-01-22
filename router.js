@@ -1,11 +1,13 @@
 var log = require('./log');
-function route(handle, pathname) {
+function route(handle, pathname, res, req) {
     log('About to route a request for ' + pathname);
     if (typeof handle[pathname] === 'function') {
-        return handle[pathname]();
+        return handle[pathname](res, req);
     } else {
-        log('No request handler found for ' + pathname);
-        return '404 Not found'
+        log("No request handler found for " + pathname);
+        res.writeHead(200, {'Content-Type': 'text/plain'});
+        res.write('404 Not found');
+        res.end();
     }
 }
 var router = {

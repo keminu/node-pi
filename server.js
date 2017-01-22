@@ -3,12 +3,11 @@ var url = require('url');
 var log = require('./log');
 function start(route, handle) {
     function onReq(req, res) {
+        var postData = '';
         var pathname = url.parse(req.url).pathname;
         log('Request for' + pathname + 'received.');
-        res.writeHead(200, {'Content-Type': 'text/plain'});
-        var content = route(handle, pathname);
-        res.write(content);
-        res.end();
+        route(handle, pathname, res, req);
+
     }
     http.createServer(onReq).listen(8888);
     log('Server has started');
