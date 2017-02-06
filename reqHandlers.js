@@ -55,6 +55,9 @@ function show(res) {
         }
     })
 }
+function file(res) {
+    fs.readFile('')
+}
 var reqHandlers = {
     start: start,
     upload: upload,
